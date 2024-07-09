@@ -1,205 +1,402 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
-$primary-color: #2D9CDB;
-$background-color: #1E1E1E;
-$card-background: #2C2C2C;
-$text-color: #FFFFFF;
+$primary-color: #3a13ff;
+$secondary-color: #1e0063;
+$text-color: #ffffff;
+
+$background-color: #1e1e1e;
+$card-background: #2c2c2c;
 $border-radius: 8px;
 
-* {
-  box-sizing: border-box;
+body {
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: $background-color;
-  color: $text-color;
+  font-family: "Inter", sans-serif;
 }
 
 .app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #1e0063, #080024);
+  color: $text-color;
+  overflow: hidden;
 
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
 
-  .tabs {
-    button {
-      background: none;
-      border: none;
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+
+      .triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 17px solid $text-color;
+        margin-right: 0.5rem;
+      }
+    }
+
+    nav {
+      a {
+        color: $text-color;
+        text-decoration: none;
+        margin: 0 1rem;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .connect-wallet {
+      background-color: $primary-color;
       color: $text-color;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 10px 20px;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
       cursor: pointer;
 
-      &.active {
+      .wallet-icon {
+        width: 20px;
+        height: 20px;
+        background-color: $text-color;
+        margin-right: 0.5rem;
+        mask: url("https://www.svgrepo.com/show/21106/thumbs-up.svg") no-repeat
+          center / contain;
+      }
+    }
+  }
+
+  main {
+    position: relative;
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 100vw;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0) 70%
+      );
+      pointer-events: none;
+    }
+
+    .hero{
+      z-index: 100;
+    }
+
+    .announcement {
+      background-color: rgba(255, 255, 255, 0.1);
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+
+      a {
+        color: $text-color;
+        text-decoration: none;
+        font-weight: 600;
+
+        .arrow {
+          font-size: 0.8em;
+          vertical-align: super;
+        }
+      }
+    }
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 4rem;
+
+      button {
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+
+        &.primary {
+          background-color: $text-color;
+          color: $secondary-color;
+          border: none;
+        }
+
+        &.secondary {
+          background-color: transparent;
+          color: $text-color;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .arrow {
+          font-size: 0.8em;
+          vertical-align: super;
+        }
+      }
+    }
+  }
+
+  .container {
+    position: relative;
+    width: 80%;
+    background: rgb(13, 1, 52);
+    padding: 32px;
+    margin: 10px auto;
+    box-shadow: 0 0 120px 5px rgba(249, 248, 248, 0.2); /* Adjust the values for the glow effect */ 
+    // box-shadow: 0 -35vh 40px rgba(0, 0, 0, 0.5); /* Adjust the values for the shadow effect */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 0;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; /* Adjust the distance above the div */
+      left: 50%;
+      transform: translate(-50%,-100%);
+      width: 65%;
+      height:  40h;
+      border-left: 10vw solid transparent; /* Adjust the size and color */
+      border-right: 10vw solid transparent; /* Adjust the size and color */
+      border-bottom: 35vh solid rgba(255, 255, 255, 0.4); /* Adjust the size and color */
+      filter: blur(120px);
+      z-index: 0;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0; /* Adjust the distance above the div */
+      left: 50%;
+      transform: translate(-50%,-100%);
+      width: 75%;
+      height: 40px;
+      border-left: 10vw solid transparent; /* Adjust the size and color */
+      border-right: 10vw solid transparent; /* Adjust the size and color */
+      border-bottom: 10vh solid rgba(255, 255, 255, 0.464); /* Adjust the size and color */
+      filter: blur(30px);
+      z-index: 0;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .tabs {
+        button {
+          background: none;
+          border: none;
+          color: $text-color;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 10px 20px;
+          cursor: pointer;
+
+          &.active {
+            background-color: $primary-color;
+            border-radius: $border-radius;
+          }
+        }
+      }
+
+      .attendee-sign-in {
         background-color: $primary-color;
+        color: $text-color;
+        border: none;
+        padding: 10px 20px;
+        border-radius: $border-radius;
+        cursor: pointer;
+      }
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      .event-types {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        button {
+          background-color: $card-background;
+          color: $text-color;
+          border: none;
+          padding: 8px 16px;
+          border-radius: $border-radius;
+          cursor: pointer;
+
+          &.active {
+            background-color: $primary-color;
+          }
+        }
+      }
+
+      .search,
+      .date-picker,
+      .region-select {
+        flex-grow: 1;
+
+        input,
+        select {
+          width: 100%;
+          padding: 10px;
+          background-color: $card-background;
+          color: $text-color;
+          border: 1px solid #3d3d3d;
+          border-radius: $border-radius;
+        }
+      }
+    }
+
+    .events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .filter-dropdown select {
+        padding: 8px;
+        background-color: $card-background;
+        color: $text-color;
+        border: 1px solid #3d3d3d;
         border-radius: $border-radius;
       }
     }
-  }
 
-  .attendee-sign-in {
-    background-color: $primary-color;
-    color: $text-color;
-    border: none;
-    padding: 10px 20px;
-    border-radius: $border-radius;
-    cursor: pointer;
-  }
-}
+    .events-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+      .event-card {
+        background-color: $card-background;
+        border-radius: $border-radius;
+        overflow: hidden;
 
-  .event-types {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+        .event-image {
+          position: relative;
 
-    button {
-      background-color: $card-background;
-      color: $text-color;
-      border: none;
-      padding: 8px 16px;
-      border-radius: $border-radius;
-      cursor: pointer;
+          img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+          }
 
-      &.active {
-        background-color: $primary-color;
-      }
-    }
-  }
-
-  .search, .date-picker, .region-select {
-    flex-grow: 1;
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      background-color: $card-background;
-      color: $text-color;
-      border: 1px solid #3D3D3D;
-      border-radius: $border-radius;
-    }
-  }
-}
-
-.events-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-
-  h2 {
-    font-size: 24px;
-    font-weight: 500;
-  }
-
-  .filter-dropdown select {
-    padding: 8px;
-    background-color: $card-background;
-    color: $text-color;
-    border: 1px solid #3D3D3D;
-    border-radius: $border-radius;
-  }
-}
-
-.events-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-
-  .event-card {
-    background-color: $card-background;
-    border-radius: $border-radius;
-    overflow: hidden;
-
-    .event-image {
-      position: relative;
-
-      img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-
-      .event-rating {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: $text-color;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 14px;
-      }
-    }
-
-    .event-details {
-      padding: 20px;
-
-      h3 {
-        margin-bottom: 10px;
-        font-size: 18px;
-        font-weight: 600;
-      }
-
-      p {
-        margin-bottom: 8px;
-        font-size: 14px;
-
-        &.description {
-          color: #A0A0A0;
+          .event-rating {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: $text-color;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+          }
         }
 
-        .icon {
-          margin-right: 5px;
+        .event-details {
+          padding: 20px;
+
+          h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+          }
+
+          p {
+            margin-bottom: 8px;
+            font-size: 14px;
+
+            &.description {
+              color: #a0a0a0;
+            }
+
+            .icon {
+              margin-right: 5px;
+            }
+          }
+
+          .event-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+
+            &.relax {
+              background-color: #2f80ed;
+            }
+            &.educational {
+              background-color: #219653;
+            }
+            &.games {
+              background-color: #333333;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .filters {
+        flex-direction: column;
+
+        .event-types {
+          order: -1;
         }
       }
 
-      .event-type {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 500;
-        text-transform: uppercase;
+      .events-header {
+        flex-direction: column;
+        align-items: flex-start;
 
-        &.relax { background-color: #2F80ED; }
-        &.educational { background-color: #219653; }
-        &.games { background-color: #333333; }
+        h2 {
+          margin-bottom: 10px;
+        }
       }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .filters {
-    flex-direction: column;
-
-    .event-types {
-      order: -1;
-    }
-  }
-
-  .events-header {
-    flex-direction: column;
-    align-items: flex-start;
-
-    h2 {
-      margin-bottom: 10px;
     }
   }
 }
