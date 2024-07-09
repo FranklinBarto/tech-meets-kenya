@@ -49,10 +49,10 @@ const App = () => {
           <span className="triangle"></span> Tech Meets Kenya
         </div>
         <nav>
-          <a href="#">Events</a>
-          <a href="#">Conference</a>
-          <a href="#">Networking</a>
-          <a href="#">About</a>
+          <a href="#Events">Events</a>
+          <a href="#Conference">Conference</a>
+          <a href="#Networking">Networking</a>
+          <a href="#About">About</a>
         </nav>
         <button className="connect-wallet">
           <span className="wallet-icon"></span>
@@ -64,7 +64,7 @@ const App = () => {
         <div className="hero">
           <div className="announcement">
             A web Scraping project{" "}
-            <a href="#">
+            <a href="#readmore">
               Read More <span className="arrow">↗</span>
             </a>
           </div>
