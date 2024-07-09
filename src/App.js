@@ -83,10 +83,10 @@ const App = () => {
 
           <div className="cta-buttons">
             <button className="primary">
-              Trade AMB on firepot <span className="arrow">↗</span>
+              Join the Community <span className="arrow">↗</span>
             </button>
             <button className="secondary">
-              Use AMB Bridge <span className="arrow">↗</span>
+              Explore Events <span className="arrow">↗</span>
             </button>
           </div>
 
