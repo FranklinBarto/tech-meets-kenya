@@ -200,6 +200,7 @@ body {
       border-bottom: 35vh solid rgba(255, 255, 255, 0.4); /* Adjust the size and color */
       filter: blur(120px);
       z-index: 0;
+      pointer-events: none;
     }
     &::after {
       content: '';
@@ -211,9 +212,10 @@ body {
       height: 40px;
       border-left: 10vw solid transparent; /* Adjust the size and color */
       border-right: 10vw solid transparent; /* Adjust the size and color */
-      border-bottom: 10vh solid rgba(255, 255, 255, 0.464); /* Adjust the size and color */
+      border-bottom: 10vh solid rgba(255, 255, 255, 0.25); /* Adjust the size and color */
       filter: blur(30px);
       z-index: 0;
+      pointer-events: none;
     }
 
     .app-header {
