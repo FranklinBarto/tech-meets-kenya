@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./App.scss";
-
+import Database_JSON from './assets/data/database.json';
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dateRange, setDateRange] = useState("06.18-06.25");
   const [region, setRegion] = useState("Region");
   const [filter, setFilter] = useState("Choose one");
 
+  const Database = Database_JSON
+  console.log(Database)
   const events = [
     {
       id: 1,
@@ -152,25 +154,26 @@ const App = () => {
             </div>
 
             <div className="events-list">
-              {events.map((event) => (
-                <div key={event.id} className="event-card">
+              {Database.map((event,i) => (
+                <div key={i} className="event-card">
                   <div className="event-image">
-                    <img src={event.image} alt={event.title} />
-                    <span className="event-rating">7.10</span>
+                    <img src={event.image_url} alt={event.title} />
+                    <a href={event.owner_url} className="event-rating">{event.owner}</a>
                   </div>
                   <div className="event-details">
                     <h3>{event.title}</h3>
                     <p className="description">{event.description}</p>
-                    <p className="cost">Cost: {event.cost}</p>
+                    {/* <p className="cost">Cost: {event.cost}</p> */}
                     <p className="date">
                       <span className="icon">📅</span> {event.date}
                     </p>
                     <p className="place">
-                      <span className="icon">📍</span> {event.place}
+                      <span className="icon">📍</span> Place
+                      {/* {event.place} */}
                     </p>
-                    <span className={`event-type ${event.type.toLowerCase()}`}>
+                    {/* <span className={`event-type ${event.type.toLowerCase()}`}>
                       {event.type}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               ))}
