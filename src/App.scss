@@ -262,7 +262,10 @@ body {
         flex-wrap: wrap;
         gap: 10px;
 
+        
+
         button {
+          height: 40px;
           background-color: $card-background;
           color: $text-color;
           border: none;
@@ -279,10 +282,13 @@ body {
       .search,
       .date-picker,
       .region-select {
+        position: relative;
+        margin: 0 10px;
         flex-grow: 1;
-
         input,
         select {
+          position: relative;
+          height: 30px;
           width: 100%;
           padding: 10px;
           background-color: $card-background;
@@ -290,6 +296,24 @@ body {
           border: 1px solid #3d3d3d;
           border-radius: $border-radius;
         }
+        span{
+          position: absolute;
+          left: 9px;
+          top: -20px;
+          opacity: 0.8;
+          font-size: small;
+        }
+      }
+    }
+
+    .search{
+      position: relative;
+      .icon{
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        color: #000;
       }
     }
 
@@ -319,6 +343,7 @@ body {
       gap: 20px;
 
       .event-card {
+        cursor: pointer;
         background-color: $card-background;
         border-radius: $border-radius;
         overflow: hidden;

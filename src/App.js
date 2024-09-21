@@ -1,48 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { Search, Calendar } from 'lucide-react';
+
 import "./App.scss";
+import { appendIds } from "./utils/utils";
 import Database_JSON from './assets/data/database.json';
 const App = () => {
+  const Database = appendIds(Database_JSON)
+  console.log(Database)
   const [searchTerm, setSearchTerm] = useState("");
   const [dateRange, setDateRange] = useState("06.18-06.25");
   const [region, setRegion] = useState("Region");
   const [filter, setFilter] = useState("Choose one");
 
-  const Database = Database_JSON
-  console.log(Database)
-  const events = [
-    {
-      id: 1,
-      title: "Tea ceremony",
-      description: "The event will unite numerous Developers around the Globe.",
-      cost: "$32",
-      date: "22 March 2024 15:00-19:00",
-      place: "La Losange, France",
-      type: "RELAX",
-      image: "path_to_image.jpg",
-    },
-    {
-      id: 2,
-      title:
-        "CodeCrafters Confluence: Uniting Minds in the World of Development",
-      description: "The event will unite numerous Developers around the Globe.",
-      cost: "Free",
-      date: "22 July 2024 19:00-20:00",
-      place: "Online",
-      type: "EDUCATIONAL",
-      image: "path_to_image.jpg",
-    },
-    {
-      id: 3,
-      title: "Streets of Philadelphia Autotest",
-      description:
-        "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-      cost: "Free",
-      date: "22 August 2024 11:00-15:00",
-      place: "Kyiv, Ukraine, 02000",
-      type: "GAMES",
-      image: "path_to_image.jpg",
-    },
-  ];
+  const [selectedTypes, setSelectedTypes] = useState(['ALL']);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState(Database);
+  const [noItems,setNoItems] = useState();
+
+  const eventTypes = ['ALL', 'AI/ML', 'Data', 'CyberSec', 'Web', 'App'];
+
+
+  const handleTypeClick = (type) => {
+    setSelectedTypes((prevSelected) => {
+      if (type === 'ALL') return ['ALL'];
+      let newSelected = prevSelected.includes(type)
+        ? prevSelected.filter(t => t !== type)
+        : [...prevSelected.filter(t => t !== 'ALL'), type];
+      return newSelected.length ? newSelected : ['ALL'];
+    });
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'startDate') setStartDate(value);
+    else if (name === 'endDate') setEndDate(value);
+  };
+
+  useEffect(() => {
+    let filtered = Database;
+
+    // Filter by type
+    if (!selectedTypes.includes('ALL')) {
+      filtered = filtered.filter(event => selectedTypes.includes(event.type));
+    }
+
+    // Filter by search query
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(event => 
+        JSON.stringify(event).toLowerCase().includes(query)
+      );
+    }
+
+    // Filter by date range
+    if (startDate) {
+      filtered = filtered.filter(event => event.date >= startDate);
+    }
+    if (endDate) {
+      filtered = filtered.filter(event => event.date <= endDate);
+    }
+
+    setFilteredEvents(filtered);
+    setNoItems(filtered.length)
+  }, [selectedTypes, searchQuery, startDate, endDate]);
 
   return (
     <div className="app">
@@ -105,44 +132,69 @@ const App = () => {
 
           <div className="filters">
             <div className="event-types">
-              <button className="active">ALL</button>
-              <button>BIT</button>
-              <button>EDUCATIONAL</button>
-              <button>CHARITY</button>
-              <button>FOR CHILDREN</button>
-              <button>ONLINE</button>
+              {eventTypes.map((type) => (
+                <button
+                  key={type}
+                  className={`${
+                    selectedTypes.includes(type)
+                      ? 'active'
+                      : ''
+                  }`}
+                  onClick={() => handleTypeClick(type)}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+
+            <div className="date-picker">
+              <input
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={handleDateChange}
+              />
+              <span>from</span>
+            </div>
+
+            <div className="date-picker">
+              {/* <input
+                type="text"
+                value={dateRange}
+                onChange={(e) => setDateRange(e.target.value)}
+              /> */}
+              <input
+                type="date"
+                name="endDate"
+                value={endDate}
+                onChange={handleDateChange}
+              />
+              <span>to</span>
             </div>
 
             <div className="search">
               <input
                 type="text"
-                placeholder="Enter a Name"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search events..."
+                value={searchQuery}
+                onChange={handleSearch}
               />
+              <Search className="icon" size={20} />
             </div>
 
-            <div className="date-picker">
-              <input
-                type="text"
-                value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
-              />
-            </div>
-
-            <div className="region-select">
+            {/* <div className="region-select">
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
               >
                 <option>Region</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           <section>
             <div className="events-header">
-              <h2>4 events found</h2>
+              <h2>{noItems} events found</h2>
               <div className="filter-dropdown">
                 <select
                   value={filter}
@@ -154,8 +206,9 @@ const App = () => {
             </div>
 
             <div className="events-list">
-              {Database.map((event,i) => (
-                <div key={i} className="event-card">
+              
+            {filteredEvents.map((event) => (
+                <div key={event.id} className="event-card" onClick={() => window.open(event.link, '_blank')}>
                   <div className="event-image">
                     <img src={event.image_url} alt={event.title} />
                     <a href={event.owner_url} className="event-rating">{event.owner}</a>
@@ -168,8 +221,8 @@ const App = () => {
                       <span className="icon">📅</span> {event.date}
                     </p>
                     <p className="place">
-                      <span className="icon">📍</span> Place
-                      {/* {event.place} */}
+                      <span className="icon">📍</span>
+                      {event.location}
                     </p>
                     {/* <span className={`event-type ${event.type.toLowerCase()}`}>
                       {event.type}
