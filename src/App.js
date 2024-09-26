@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import { Search, Calendar } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 import "./App.scss";
 import { appendIds } from "./utils/utils";
 import Database_JSON from './assets/data/database.json';
 const App = () => {
   const Database = appendIds(Database_JSON)
-  console.log(Database)
-  const [searchTerm, setSearchTerm] = useState("");
-  const [dateRange, setDateRange] = useState("06.18-06.25");
-  const [region, setRegion] = useState("Region");
+  // console.log(Database)
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [dateRange, setDateRange] = useState("06.18-06.25");
+  // const [region, setRegion] = useState("Region");
   const [filter, setFilter] = useState("Choose one");
 
   const [selectedTypes, setSelectedTypes] = useState(['ALL']);
@@ -69,7 +69,7 @@ const App = () => {
 
     setFilteredEvents(filtered);
     setNoItems(filtered.length)
-  }, [selectedTypes, searchQuery, startDate, endDate]);
+  }, [selectedTypes, searchQuery, startDate, endDate, Database]);
 
   return (
     <div className="app">
@@ -210,7 +210,7 @@ const App = () => {
             {filteredEvents.map((event) => (
                 <div key={event.id} className="event-card" onClick={() => window.open(event.link, '_blank')}>
                   <div className="event-image">
-                    {event.image_url!='Image URL not found'&&<img src={event.image_url} alt={event.title} />}
+                    {event.image_url!=='Image URL not found'&&<img src={event.image_url} alt={event.title} />}
                     <a href={event.owner_url} className="event-rating">{event.owner}</a>
                   </div>
                   <div className="event-details">
