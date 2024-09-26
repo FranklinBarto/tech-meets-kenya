@@ -20,7 +20,7 @@ const App = () => {
   const [filteredEvents, setFilteredEvents] = useState(Database);
   const [noItems,setNoItems] = useState();
 
-  const eventTypes = ['ALL', 'AI/ML', 'Data', 'CyberSec', 'Web', 'App'];
+  const eventTypes = ['ALL','AI/ML','AI/ML', 'Data', 'CyberSec', 'Web', 'App'];
 
 
   const handleTypeClick = (type) => {
@@ -210,7 +210,7 @@ const App = () => {
             {filteredEvents.map((event) => (
                 <div key={event.id} className="event-card" onClick={() => window.open(event.link, '_blank')}>
                   <div className="event-image">
-                    <img src={event.image_url} alt={event.title} />
+                    {event.image_url!='Image URL not found'&&<img src={event.image_url} alt={event.title} />}
                     <a href={event.owner_url} className="event-rating">{event.owner}</a>
                   </div>
                   <div className="event-details">
