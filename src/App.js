@@ -20,7 +20,7 @@ const App = () => {
   const [filteredEvents, setFilteredEvents] = useState(Database);
   const [noItems,setNoItems] = useState();
 
-  const eventTypes = ['ALL','AI/ML','AI/ML', 'Data', 'CyberSec', 'Web', 'App'];
+  const eventTypes = ['ALL','AI/ML', 'Data', 'CyberSec', 'Web', 'App'];
 
 
   const handleTypeClick = (type) => {
